@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:myexpenses/src/custom_widgets/custom_widgets.dart';
 import 'package:myexpenses/src/utils/colors.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
@@ -11,31 +13,26 @@ Widget homeBody({double height, double width}) {
         height: percent(height, 60),
         width: width,
         color: Colors.white,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.only(
-              left: percent(width, 5), right: percent(width, 5)),
-          children: <Widget>[
-            mainBox(height, width),
-            Container(
-              width: percent(width, 2.5),
-            ),
-            mainBox(height, width)
-          ],
+        child: GlowingOverscrollIndicator(
+          color: primaryColor,
+          axisDirection: AxisDirection.right,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.only(
+                left: percent(width, 5), right: percent(width, 5)),
+            children: <Widget>[
+              mainBox(height, width, imagePath: 'assets/images/vegetables.jpg'),
+              Container(
+                width: percent(width, 2.5),
+              ),
+              mainBox(height, width, imagePath: 'assets/images/healthcare.jpg'),
+              Container(
+                width: percent(width, 2.5),
+              ),
+              mainBox(height, width,imagePath: '')
+            ],
+          ),
         ),
       ));
 }
 
-///returns main box as a child of listview
-///to show different information about expenses
-Widget mainBox(double height, double width) {
-  return Container(
-    width: percent(width, 90),
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: primaryColor,
-        image: DecorationImage(
-            image: AssetImage('assets/images/vegetables.jpg'),
-            fit: BoxFit.cover)),
-  );
-}

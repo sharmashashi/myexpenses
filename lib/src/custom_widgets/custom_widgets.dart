@@ -24,3 +24,24 @@ Widget widgetSalaryDay(BuildContext context) {
     ),
   );
 }
+
+///returns main box as a child of listview
+///to show different information about expenses
+Widget mainBox(double height, double width, {String imagePath,Widget child}) {
+  return Container(
+    width: percent(width, 90),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: primaryColor,
+        image: DecorationImage(
+            image: imagePath != null
+                ? AssetImage(imagePath)
+                : NetworkImage(
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/White_dot.svg/768px-White_dot.svg.png'),
+            fit: BoxFit.cover)),
+    child: Center(
+      child: child,
+    ),
+  );
+}
+///returns horizontal income bar
