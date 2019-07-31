@@ -7,8 +7,8 @@ import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 ///shows horizontal listview with cards
 Widget homeBody({double height, double width}) {
   return Positioned(
-      top: percent(height, 20),
-      bottom: percent(height, 20),
+      top: percent(height, 10),
+      bottom: percent(height, 30),
       child: Container(
         height: percent(height, 60),
         width: width,

@@ -30,14 +30,14 @@ Widget appBar({double fullHeight, double fullWidth}) {
           ///a container to fill upto 80 percent of width
           Container(
             width: percent(fullWidth, 75),
-            color: Colors.transparent,
+            color: Colors.blue,
 
             /// to add three bars
             child: Row(
               children: <Widget>[
                 ///for remaining balance and expenses
                 Padding(
-                  padding: EdgeInsets.only(left: 5),
+                  padding: EdgeInsets.only(left: percent(fullWidth, 2.5)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -57,10 +57,10 @@ Widget appBar({double fullHeight, double fullWidth}) {
 
                 ///vertical bar
                 Padding(
-                  padding: const EdgeInsets.only(left: 5),
+                  padding:  EdgeInsets.only(left: percent(fullWidth, 1.0)),
                   child: Container(
                     height: percent(fullHeight, 7),
-                    width: 5,
+                    width: percent(fullWidth, 1.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         color: Colors.amber),

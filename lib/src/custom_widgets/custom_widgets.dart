@@ -27,7 +27,7 @@ Widget widgetSalaryDay(BuildContext context) {
 
 ///returns main box as a child of listview
 ///to show different information about expenses
-Widget mainBox(double height, double width, {String imagePath,Widget child}) {
+Widget mainBox(double height, double width, {String imagePath, Widget child}) {
   return Container(
     width: percent(width, 90),
     decoration: BoxDecoration(
@@ -44,4 +44,20 @@ Widget mainBox(double height, double width, {String imagePath,Widget child}) {
     ),
   );
 }
+
 ///returns horizontal income bar
+///
+///
+
+///returns button to add income or expense
+Widget selectIncomeExpenseButton({String type, IconData iconData,double fullWidth,double fullHeight,Function onPressed}) {
+  return MaterialButton(
+   padding: EdgeInsets.all(percent(fullWidth,5)),
+    highlightColor: Colors.black12,
+    animationDuration: Duration(microseconds: 500),
+  shape: CircleBorder(),
+  child: Icon(iconData,color: Colors.white,),
+  color: type=='income'?incomeBarColor:expenseBarColor,
+  onPressed: onPressed,
+  );
+}
