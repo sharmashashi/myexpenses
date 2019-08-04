@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myexpenses/src/custom_widgets/custom_widgets.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
-Widget appBar({double fullHeight, double fullWidth}) {
+Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
   return Positioned(
     left: percent(fullWidth, 5),
     right: percent(fullWidth, 5),
@@ -30,7 +30,7 @@ Widget appBar({double fullHeight, double fullWidth}) {
           ///a container to fill upto 80 percent of width
           Container(
             width: percent(fullWidth, 75),
-            color: Colors.blue,
+            
 
             /// to add three bars
             child: Row(
@@ -38,20 +38,24 @@ Widget appBar({double fullHeight, double fullWidth}) {
                 ///for remaining balance and expenses
                 Padding(
                   padding: EdgeInsets.only(left: percent(fullWidth, 2.5)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        'Income',
-                        style:
-                            TextStyle(color: Colors.green[900], fontSize: 12),
-                      ),
-                      Text(
-                        'Expenses',
-                        style: TextStyle(color: Colors.red[900], fontSize: 12),
-                      )
-                    ],
+                  child: Container(
+                    width: percent(fullWidth, 15),
+                   
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          'Income',
+                          style:
+                              TextStyle(color: Colors.green[900], fontSize: 12),
+                        ),
+                        Text(
+                          'Expenses',
+                          style: TextStyle(color: Colors.red[900], fontSize: 12),
+                        )
+                      ],
+                    ),
                   ),
                 ),
 
@@ -74,25 +78,9 @@ Widget appBar({double fullHeight, double fullWidth}) {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     ///for income
-                    Container(
-                      height: 10,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.green[900],
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(20))),
-                    ),
+                    incomeBar(homeProvider,fullWidth),
                     ///for expenses
-                     Container(
-                      height: 10,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.red[900],
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(20))),
-                    ),
+                    expenseBar(homeProvider, fullWidth)
                   ],
                 )
               ],

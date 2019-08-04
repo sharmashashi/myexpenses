@@ -46,18 +46,96 @@ Widget mainBox(double height, double width, {String imagePath, Widget child}) {
 }
 
 ///returns horizontal income bar
-///
-///
+Widget incomeBar(var homeProvider, double fullWidth) {
+  double width;
+  // double income, expense;
+  // if (homeProvider.getTotalIncome == null)
+  //   income = 0.1;
+  // else
+  //   income = homeProvider.getTotalIncome;
+  // if (homeProvider.getTotalExpense == null)
+  //   expense = 0.1;
+  // else
+  //   expense = homeProvider.getTotalExpense;
+
+  width = percent(fullWidth, 55) -
+      (homeProvider.getTotalExpense *
+          percent(fullWidth, 55) /
+          homeProvider.getTotalIncome);
+
+  if (width <= 0) width = 1;
+  return Container(
+    alignment: Alignment.center,
+    child: Text(
+      homeProvider.getTotalIncome.truncate().toString(),
+      style: TextStyle(
+          color: Colors.white,
+          fontSize: percent(fullWidth, 2),
+          fontWeight: FontWeight.bold),
+    ),
+    height: 10,
+    width: width,
+    decoration: BoxDecoration(
+        color: incomeBarColor,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
+  );
+}
+
+//returns horizontal income bar
+Widget expenseBar(var homeProvider, double fullWidth) {
+  double width;
+  // double income, expense;
+
+  // if (homeProvider.getTotalIncome == null)
+  //   income = 0.1;
+  // else
+  //   income = homeProvider.getTotalIncome;
+  // if (homeProvider.getTotalExpense == null)
+  //   expense = 0.1;
+  // else
+  //   expense = homeProvider.getTotalExpense;
+  width = (homeProvider.getTotalExpense *
+      percent(fullWidth, 55) /
+      homeProvider.getTotalIncome);
+
+  if (width <= 0) width = 1;
+  if (width > percent(fullWidth, 55)) width = percent(fullWidth, 55);
+  return Container(
+    alignment: Alignment.center,
+    child: Text(
+      homeProvider.getTotalExpense.truncate().toString(),
+      style: TextStyle(
+          color: Colors.white,
+          fontSize: percent(fullWidth, 2),
+          fontWeight: FontWeight.bold),
+    ),
+    height: 10,
+    width: width,
+    decoration: BoxDecoration(
+        color: expenseBarColor,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
+  );
+}
 
 ///returns button to add income or expense
-Widget selectIncomeExpenseButton({String type, IconData iconData,double fullWidth,double fullHeight,Function onPressed}) {
+Widget selectIncomeExpenseButton(
+    {String type,
+    IconData iconData,
+    double fullWidth,
+    double fullHeight,
+    Function onPressed}) {
   return MaterialButton(
-   padding: EdgeInsets.all(percent(fullWidth,5)),
+    padding: EdgeInsets.all(percent(fullWidth, 5)),
     highlightColor: Colors.black12,
     animationDuration: Duration(microseconds: 500),
-  shape: CircleBorder(),
-  child: Icon(iconData,color: Colors.white,),
-  color: type=='income'?incomeBarColor:expenseBarColor,
-  onPressed: onPressed,
+    shape: CircleBorder(),
+    child: Icon(
+      iconData,
+      color: Colors.white,
+    ),
+    color: type == 'income' ? incomeBarColor : expenseBarColor,
+    onPressed: onPressed,
   );
 }

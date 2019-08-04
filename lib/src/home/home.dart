@@ -21,7 +21,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    controller.text = '0';
     return ChangeNotifierProvider<HomeProvider>(
       builder: (context) => HomeProvider(),
       child: Builder(builder: (BuildContext context) {
@@ -32,8 +31,6 @@ class _HomeState extends State<Home> {
         ///home provider to set and get
         var _homeProvider = Provider.of<HomeProvider>(context);
         _homeProvider.initialize();
-        print(_homeProvider.getTotalIncome);
-        print(_homeProvider.getTotalExpense);
         Widget _incomeExpenseBody =
             createIncomeEXpenseBody(_homeProvider, _fullHeight, _fullWidth);
 
@@ -49,6 +46,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               ///app bar
               appBar(
+                _homeProvider,
                 fullHeight: _fullHeight,
                 fullWidth: _fullWidth,
               ),
@@ -160,34 +158,21 @@ class _HomeState extends State<Home> {
             color: Colors.white,
           ),
           onPressed: () {
-            print(type);
-
             ///save income or expense data and remove textField
             ///for total income
-            homeProvider.getTotalIncome != null
-                ? updateSharedPreferences(
-                    totalIncome: type == 'Todays Income'
-                        ? double.parse(controller.text) +
-                            homeProvider.getTotalIncome
-                        : homeProvider.getTotalIncome,
-                    totalExpense: type == 'Todays Expense'
-                        ? double.parse(controller.text) +
-                            homeProvider.getTotalExpense
-                        : homeProvider.getTotalExpense)
-                : updateSharedPreferences(totalIncome: 0);
 
-            ///for total expense
-            homeProvider.getTotalExpense != null
-                ? updateSharedPreferences(
-                    totalIncome: type == 'Todays Income'
-                        ? double.parse(controller.text) +
-                            homeProvider.getTotalIncome
-                        : homeProvider.getTotalIncome,
-                    totalExpense: type == 'Todays Expense'
-                        ? double.parse(controller.text) +
-                            homeProvider.getTotalExpense
-                        : homeProvider.getTotalExpense)
-                : updateSharedPreferences(totalExpense: 0);
+            double controllerValue = double.parse(controller.text);
+            
+            if (type == 'Todays Income') {
+              double totalIncome = homeProvider.getTotalIncome;
+              updateSharedPreferences(
+                  totalIncome: totalIncome + controllerValue);
+            } else if (type == 'Todays Expense') {
+              double totalExpense = homeProvider.getTotalExpense;
+              updateSharedPreferences(
+                  totalExpense: controllerValue + totalExpense);
+            }
+            controller.clear();
             setState(() {
               textFieldButton = Container(
                 height: 0,

@@ -3,14 +3,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeProvider with ChangeNotifier {
   double incomeBarLength = 0,
-      totalIncome = 0,
+      totalIncome ,
       expenseBarLength = 0,
-      totalExpense = 0;
+      totalExpense ;
 
   void initialize() async {
     SharedPreferences myprefs = await SharedPreferences.getInstance();
-    setTotalIncome = myprefs.getDouble('totalIncome');
-    setTotalExpense = myprefs.getDouble('totalExpense');
+   myprefs.getDouble('totalIncome')==null?setTotalIncome=1.0: setTotalIncome = myprefs.getDouble('totalIncome');
+    myprefs.getDouble('totalExpense')==null?setTotalExpense=1.0:setTotalExpense = myprefs.getDouble('totalExpense');
   }
 
   ///getters
