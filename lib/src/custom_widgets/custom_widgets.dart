@@ -3,23 +3,33 @@ import 'package:myexpenses/src/utils/colors.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
 ///widget that returns circular shape with remaining days
-Widget widgetSalaryDay(BuildContext context) {
-  return Container(
-    alignment: Alignment.center,
-    height: percent(MediaQuery.of(context).size.height, 7),
-    width: percent(MediaQuery.of(context).size.height, 7),
-    decoration: BoxDecoration(shape: BoxShape.circle, color: primaryColor),
-    child: Container(
+Widget widgetSalaryDay(int remainingDays,BuildContext context,Function onTap) {
+  return InkWell(
+    onTap: onTap,
+      child: Container(
       alignment: Alignment.center,
-      height: percent(MediaQuery.of(context).size.height, 6),
-      width: percent(MediaQuery.of(context).size.height, 6),
-      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-      child: Text(
-        '19 days',
-        style: TextStyle(
-            color: Colors.deepPurple,
-            fontWeight: FontWeight.bold,
-            fontSize: 10),
+      height: percent(MediaQuery.of(context).size.height, 7),
+      width: percent(MediaQuery.of(context).size.height, 7),
+      decoration:
+          BoxDecoration(shape: BoxShape.circle, color: primaryColor, boxShadow: [
+        BoxShadow(
+            color: Colors.grey,
+            blurRadius: 1.5,
+            offset: Offset(1, 1),
+            spreadRadius: (0.5))
+      ]),
+      child: Container(
+        alignment: Alignment.center,
+        height: percent(MediaQuery.of(context).size.height, 6),
+        width: percent(MediaQuery.of(context).size.height, 6),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+        child: Text(
+          '$remainingDays days',
+          style: TextStyle(
+              color: Colors.deepPurple,
+              fontWeight: FontWeight.bold,
+              fontSize: 10),
+        ),
       ),
     ),
   );

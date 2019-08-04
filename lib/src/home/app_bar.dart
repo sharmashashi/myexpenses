@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myexpenses/src/custom_widgets/custom_widgets.dart';
+import 'package:myexpenses/src/local_storage/sharedPreferences.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
+import 'dart:convert' as json;
 
-Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
+Widget appBar(var homeProvider, {double fullHeight, double fullWidth}) {
   return Positioned(
     left: percent(fullWidth, 5),
     right: percent(fullWidth, 5),
@@ -30,7 +33,6 @@ Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
           ///a container to fill upto 80 percent of width
           Container(
             width: percent(fullWidth, 75),
-            
 
             /// to add three bars
             child: Row(
@@ -40,7 +42,6 @@ Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
                   padding: EdgeInsets.only(left: percent(fullWidth, 2.5)),
                   child: Container(
                     width: percent(fullWidth, 15),
-                   
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -52,7 +53,8 @@ Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
                         ),
                         Text(
                           'Expenses',
-                          style: TextStyle(color: Colors.red[900], fontSize: 12),
+                          style:
+                              TextStyle(color: Colors.red[900], fontSize: 12),
                         )
                       ],
                     ),
@@ -61,7 +63,7 @@ Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
 
                 ///vertical bar
                 Padding(
-                  padding:  EdgeInsets.only(left: percent(fullWidth, 1.0)),
+                  padding: EdgeInsets.only(left: percent(fullWidth, 1.0)),
                   child: Container(
                     height: percent(fullHeight, 7),
                     width: percent(fullWidth, 1.0),
@@ -78,7 +80,8 @@ Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     ///for income
-                    incomeBar(homeProvider,fullWidth),
+                    incomeBar(homeProvider, fullWidth),
+
                     ///for expenses
                     expenseBar(homeProvider, fullWidth)
                   ],
@@ -91,7 +94,22 @@ Widget appBar(var homeProvider,{double fullHeight, double fullWidth}) {
           Padding(
             padding: const EdgeInsets.only(right: 3.0),
             child: Builder(
-              builder: (BuildContext context) => widgetSalaryDay(context),
+              builder: (BuildContext context) => widgetSalaryDay(
+                  homeProvider.getRemainingDays, context, () async {
+                final DateTime date = await showDatePicker(
+                    context: context,
+                    initialDatePickerMode: DatePickerMode.day,
+                    firstDate: DateTime.now(),
+                    initialDate: DateTime.now(),
+                    lastDate: DateTime(2020),
+                    builder: (context, widget) {
+                      return Theme(data: ThemeData.light(),child: widget,);
+                    });
+
+                ///update local storage with remaining days to get salary
+                if (date != null)
+                  updateSharedPreferences(salaryDayDate: date.toString());
+              }),
             ),
           )
         ],
