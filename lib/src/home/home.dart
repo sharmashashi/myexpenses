@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myexpenses/src/custom_widgets/custom_widgets.dart';
 import 'package:myexpenses/src/home/app_bar.dart';
 import 'package:myexpenses/src/home/home_body.dart';
 import 'package:myexpenses/src/home/home_provider.dart';
+import 'package:myexpenses/src/home/select_category.dart';
 import 'package:myexpenses/src/local_storage/sharedPreferences.dart';
 import 'package:myexpenses/src/utils/colors.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
@@ -78,7 +80,7 @@ class _HomeState extends State<Home> {
 
               ///for input expense button
               Positioned(
-                  bottom: percent(_fullHeight, 20),
+                  bottom: percent(_fullHeight, 15),
                   child: Container(
                       width: percent(_fullWidth, 100),
                       child: _incomeExpenseBody)),
@@ -105,22 +107,44 @@ class _HomeState extends State<Home> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         ///for income button
-        selectIncomeExpenseButton(
-            type: 'income',
-            iconData: Icons.add,
-            fullHeight: _fullHeight,
-            fullWidth: _fullWidth,
-            onPressed: onIncomeExpensePressed(
-                homeProvider, 'Todays Income', _fullWidth, _fullHeight)),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            selectIncomeExpenseButton(
+                type: 'income',
+                iconData: Icons.add,
+                fullHeight: _fullHeight,
+                fullWidth: _fullWidth,
+                onPressed: onIncomeExpensePressed(
+                    homeProvider, 'Todays Income', _fullWidth, _fullHeight)),
+            Text(
+              'Income',
+              style:
+                  TextStyle(color: incomeBarColor, fontWeight: FontWeight.w300),
+            )
+          ],
+        ),
 
         ///for expense button
-        selectIncomeExpenseButton(
-            type: 'expense',
-            iconData: Icons.remove,
-            fullHeight: _fullHeight,
-            fullWidth: _fullWidth,
-            onPressed: onIncomeExpensePressed(
-                homeProvider, 'Todays Expense', _fullWidth, _fullHeight)),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            selectIncomeExpenseButton(
+                type: 'expense',
+                iconData: Icons.remove,
+                fullHeight: _fullHeight,
+                fullWidth: _fullWidth,
+                onPressed: onIncomeExpensePressed(
+                    homeProvider, 'Todays Expense', _fullWidth, _fullHeight)),
+            Text(
+              'Expense',
+              style: TextStyle(
+                  color: expenseBarColor, fontWeight: FontWeight.w300),
+            )
+          ],
+        )
       ],
     );
   }
@@ -162,15 +186,54 @@ class _HomeState extends State<Home> {
             ///for total income
 
             double controllerValue = double.parse(controller.text);
-            
+
             if (type == 'Todays Income') {
               double totalIncome = homeProvider.getTotalIncome;
               updateSharedPreferences(
                   totalIncome: totalIncome + controllerValue);
             } else if (type == 'Todays Expense') {
-              double totalExpense = homeProvider.getTotalExpense;
-              updateSharedPreferences(
-                  totalExpense: controllerValue + totalExpense);
+              ///show category dialog to save
+              ///in which category expenses done
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    ///calculate total expense
+                    double totalExpense =
+                        homeProvider.getTotalExpense + controllerValue;
+                    return SimpleDialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      children: <Widget>[
+                        Center(
+                          child: Text(
+                            'Select Category',
+                            style: TextStyle(
+                                color: incomeBarColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Divider(),
+
+                        ///for category chip
+                        ///update category wise expense
+                        ///in the form of list with
+                        ///[expense,description,date]
+                        SelectCategory(
+                            totalExpense: totalExpense,
+                            expense: controllerValue),
+
+                        ///cancel Button
+                        CupertinoButton(
+                          child: Text('Cancel',style: TextStyle(color: Colors.red),),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  });
             }
             controller.clear();
             setState(() {
