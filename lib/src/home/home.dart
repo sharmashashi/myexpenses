@@ -195,12 +195,16 @@ class _HomeState extends State<Home> {
               ///show category dialog to save
               ///in which category expenses done
               showDialog(
+                
                   context: context,
                   builder: (BuildContext context) {
                     ///calculate total expense
                     double totalExpense =
                         homeProvider.getTotalExpense + controllerValue;
                     return SimpleDialog(
+
+                      titlePadding: EdgeInsets.all(0),
+                      contentPadding: EdgeInsets.all(0),
                       backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),

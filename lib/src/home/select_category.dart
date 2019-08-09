@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myexpenses/src/home/add_expense_descprition.dart';
 import 'package:myexpenses/src/utils/colors.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
@@ -22,35 +24,32 @@ class _SelectCategoryState extends State<SelectCategory> {
         children: <Widget>[
           ///for Kitchen
           createRowCategory(
-              image: AssetImage('assets/images/vegetables.jpg'),
+              imagePath: 'assets/images/vegetables.jpg',
               categoryName: 'Kitchen'),
 
           ///for health
           createRowCategory(
-              image: AssetImage('assets/images/healthcare.jpg'),
+              imagePath: 'assets/images/healthcare.jpg',
               categoryName: 'Health Care'),
 
           ///for health
           createRowCategory(
-              image: AssetImage('assets/images/transportation.jpg'),
+              imagePath: 'assets/images/transportation.jpg',
               categoryName: 'Transportation'),
 
           ///for health
           createRowCategory(
-              image: AssetImage('assets/images/clothing.jpg'),
+              imagePath: 'assets/images/clothing.jpg',
               categoryName: 'Clothing'),
 
           ///for health
           createRowCategory(
-              image: AssetImage('assets/images/food.jpg'),
-              categoryName: 'Foods'),
+              imagePath: 'assets/images/food.jpg', categoryName: 'Foods'),
 
           ///for health
           createRowCategory(
-              image: AssetImage('assets/images/interior.jpg'),
+              imagePath: 'assets/images/interior.jpg',
               categoryName: 'Interior'),
-
-        
         ],
       ),
     );
@@ -58,32 +57,59 @@ class _SelectCategoryState extends State<SelectCategory> {
 
   ///returns row with image and categories
   Widget createRowCategory(
-      {@required AssetImage image, @required String categoryName}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        ///for Image
-        Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(image: image, fit: BoxFit.cover),
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.blue),
-          height: percent(MediaQuery.of(context).size.width, 20),
-          width: percent(MediaQuery.of(context).size.width, 30),
-          // child: image,
-        ),
-        Container(
-          width: 10,
-        ),
+      {@required String imagePath, @required String categoryName}) {
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          ///for Image
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(imagePath), fit: BoxFit.cover),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.transparent),
+            height: percent(MediaQuery.of(context).size.width, 20),
+            width: percent(MediaQuery.of(context).size.width, 30),
+          ),
 
-        ///for categoryname
-        Text(
-          categoryName,
-          style: TextStyle(
-              color: primaryColor, fontWeight: FontWeight.w300, fontSize: 18),
-        ),
-      ],
+          Container(
+            width: 10,
+          ),
+
+          ///for categoryname
+          Text(
+            categoryName,
+            style: TextStyle(
+                color: primaryColor, fontWeight: FontWeight.w300, fontSize: 18),
+          ),
+        ],
+      ),
+
+      ///apply ontap to save expense and
+      ///give space to fill description
+      onTap: () {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => SimpleDialog(
+                  // contentPadding: EdgeInsets.all(10),
+                  backgroundColor: Colors.transparent,
+                  elevation: 100,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  children: [
+                    ExpenseDescription(
+                      categoryName: categoryName,
+                      totalExpense: widget.totalExpense,
+                      expense: widget.expense,
+                      imagePath: imagePath,
+                    )
+                  ],
+                ));
+       
+      },
     );
   }
 }
