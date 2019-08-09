@@ -161,15 +161,15 @@ class _HomeState extends State<Home> {
           flex: 1,
           child: TextField(
             keyboardType: TextInputType.number,
-            autofocus: true,cursorColor: Colors.green,
+            autofocus: true,
+            cursorColor: Colors.green,
             controller: controller,
             decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.all(12),
                 hintText: type,
-                
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green),
+                    borderSide: BorderSide(color: Colors.green),
                     borderRadius:
                         BorderRadius.circular(percent(fullHeight, 100)))),
           ),
@@ -197,14 +197,12 @@ class _HomeState extends State<Home> {
               ///show category dialog to save
               ///in which category expenses done
               showDialog(
-
                   context: context,
                   builder: (BuildContext context) {
                     ///calculate total expense
                     double totalExpense =
                         homeProvider.getTotalExpense + controllerValue;
                     return SimpleDialog(
-
                       titlePadding: EdgeInsets.all(0),
                       contentPadding: EdgeInsets.all(0),
                       backgroundColor: Colors.white,
@@ -232,7 +230,10 @@ class _HomeState extends State<Home> {
 
                         ///cancel Button
                         CupertinoButton(
-                          child: Text('Cancel',style: TextStyle(color: Colors.red),),
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.red),
+                          ),
                           onPressed: () {
                             Navigator.pop(context);
                           },

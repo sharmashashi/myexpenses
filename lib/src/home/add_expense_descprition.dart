@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myexpenses/src/utils/dimention_in_percent.dart';
+import 'package:myexpenses/src/local_storage/sharedPreferences.dart';
 
 class ExpenseDescription extends StatelessWidget {
   final String imagePath;
@@ -47,7 +47,7 @@ class ExpenseDescription extends StatelessWidget {
                 child: Text(
                   categoryName,
                   style: TextStyle(
-                      color: Colors.green,
+                      color: Colors.deepPurple,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -135,7 +135,14 @@ class ExpenseDescription extends StatelessWidget {
                         'Save',
                         style: TextStyle(color: Colors.blue),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        ///on save add details in category list and update total expense
+                        updateSharedPreferences(totalExpense: totalExpense);
+
+                        ///dismiss 2 dialogs
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
 
