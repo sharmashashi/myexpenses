@@ -161,13 +161,15 @@ class _HomeState extends State<Home> {
           flex: 1,
           child: TextField(
             keyboardType: TextInputType.number,
-            autofocus: true,
+            autofocus: true,cursorColor: Colors.green,
             controller: controller,
             decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.all(12),
                 hintText: type,
-                border: OutlineInputBorder(
+                
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green),
                     borderRadius:
                         BorderRadius.circular(percent(fullHeight, 100)))),
           ),
@@ -195,7 +197,7 @@ class _HomeState extends State<Home> {
               ///show category dialog to save
               ///in which category expenses done
               showDialog(
-                
+
                   context: context,
                   builder: (BuildContext context) {
                     ///calculate total expense
