@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:myexpenses/src/custom_widgets/custom_widgets.dart';
+import 'package:myexpenses/src/home/detailed_expense_list_builder.dart';
 import 'package:myexpenses/src/utils/colors.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
@@ -20,16 +21,19 @@ Widget homeBody({double height, double width}) {
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.only(
                 left: percent(width, 5), right: percent(width, 5)),
+                ///items that scrolls horizontally 
             children: <Widget>[
-              mainBox(height, width, imagePath: 'assets/images/vegetables.jpg'),
+              ///for kitchen
+              Stack(
+                children: <Widget>[
+                  Opacity(opacity: 0.2,child: mainBox(height, width, imagePath: 'assets/images/vegetables.jpg')),
+                 DetailedExpenseListBuilder()
+                ],
+              ),
               Container(
                 width: percent(width, 2.5),
               ),
-              mainBox(height, width, imagePath: 'assets/images/healthcare.jpg'),
-              Container(
-                width: percent(width, 2.5),
-              ),
-              mainBox(height, width,imagePath: '')
+             
             ],
           ),
         ),
