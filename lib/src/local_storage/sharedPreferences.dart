@@ -4,7 +4,12 @@ void updateSharedPreferences(
     {double totalIncome,
     double totalExpense,
     String salaryDayDate,
-    List<String> expenseInHealth,expenseInFood,expenseInTransportation,expenseInClothing,expenseInKitchen,expenseInterior}) async {
+    String expenseInHealth,
+    expenseInFood,
+    expenseInTransportation,
+    expenseInClothing,
+    expenseInKitchen,
+    expenseInInterior}) async {
   SharedPreferences myprefs = await SharedPreferences.getInstance();
   totalIncome != null ? myprefs.setDouble('totalIncome', totalIncome) : null;
   totalExpense != null ? myprefs.setDouble('totalExpense', totalExpense) : null;
@@ -14,9 +19,21 @@ void updateSharedPreferences(
 
   ///expense categories
   expenseInHealth != null
-      ? myprefs.setStringList('expenseInHealth', expenseInHealth)
+      ? myprefs.setString('expenseInHealth', expenseInHealth)
       : null;
-       expenseInKitchen != null
-      ? myprefs.setStringList('expenseInKitchen', expenseInKitchen)
+  expenseInKitchen != null
+      ? myprefs.setString('expenseInKitchen', expenseInKitchen)
+      : null;
+  expenseInClothing != null
+      ? myprefs.setString('expenseInClothing', expenseInClothing)
+      : null;
+  expenseInFood != null
+      ? myprefs.setString('expenseInFood', expenseInFood)
+      : null;
+  expenseInInterior != null
+      ? myprefs.setString('expenseInInterior', expenseInInterior)
+      : null;
+  expenseInTransportation != null
+      ? myprefs.setString('expenseInTransportation', expenseInTransportation)
       : null;
 }

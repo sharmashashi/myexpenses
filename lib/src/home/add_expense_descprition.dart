@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myexpenses/src/local_storage/sharedPreferences.dart';
+import 'dart:convert' as convert;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExpenseDescription extends StatelessWidget {
   final String imagePath;
@@ -139,6 +142,15 @@ class ExpenseDescription extends StatelessWidget {
                         ///on save add details in category list and update total expense
                         updateSharedPreferences(totalExpense: totalExpense);
 
+                        ///save description and individual expenses
+                        saveDetailedExpenses(
+                            expense: expense,
+                            description: _descriptionController.text != ''
+                                ? _descriptionController.text
+                                : 'No Details.',
+                            date: DateTime.now(),
+                            categoryKey: categoryName);
+
                         ///dismiss 2 dialogs
                         Navigator.pop(context);
                         Navigator.pop(context);
@@ -167,5 +179,48 @@ class ExpenseDescription extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  ///to save detailed expenses record in local storage
+  Future saveDetailedExpenses(
+      {@required double expense,
+      @required String description,
+      @required DateTime date,
+      @required String categoryKey}) async {
+    SharedPreferences detailedExpensesPrefs =
+        await SharedPreferences.getInstance();
+    Map fromLocal=new Map();
+    int localLength = 1;
+    if (detailedExpensesPrefs.getString('expenseIn' +categoryName) != null) {
+      fromLocal = convert.jsonDecode(
+          detailedExpensesPrefs.getString('expenseIn' + categoryName));
+      localLength = fromLocal.length + 1;
+    }
+    fromLocal['$localLength'] = [
+      '$expense',
+      description,
+      DateTime.now().toString()
+    ];
+
+    ///encode description before storing in local storage
+    String encodedDetail = convert.jsonEncode(fromLocal);
+
+    if (categoryKey == 'Kitchen')
+      updateSharedPreferences(expenseInKitchen: encodedDetail);
+    else if (categoryKey == 'Clothing')
+      updateSharedPreferences(expenseInClothing: encodedDetail);
+    else if (categoryKey == 'Transportation')
+      updateSharedPreferences(expenseInTransportation: encodedDetail);
+    else if (categoryKey == 'Foods')
+      updateSharedPreferences(expenseInFood: encodedDetail);
+    else if (categoryKey == 'Interior')
+      updateSharedPreferences(expenseInInterior: encodedDetail);
+    else
+      updateSharedPreferences(expenseInHealth: encodedDetail);
+    print('detailed expenses updated successfully!!!');
+    Future.delayed(Duration(seconds: 4)).then((_) {
+      print(convert
+          .jsonDecode(detailedExpensesPrefs.getString('expenseIn'+categoryName)));
+    });
   }
 }
