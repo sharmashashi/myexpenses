@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as chart;
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
 class Charts extends StatefulWidget {
