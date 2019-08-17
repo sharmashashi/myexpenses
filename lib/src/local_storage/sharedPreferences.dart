@@ -9,7 +9,7 @@ void updateSharedPreferences(
     expenseInTransportation,
     expenseInClothing,
     expenseInKitchen,
-    expenseInInterior}) async {
+    expenseInother}) async {
   SharedPreferences myprefs = await SharedPreferences.getInstance();
   totalIncome != null ? myprefs.setDouble('totalIncome', totalIncome) : null;
   totalExpense != null ? myprefs.setDouble('totalExpense', totalExpense) : null;
@@ -30,8 +30,8 @@ void updateSharedPreferences(
   expenseInFood != null
       ? myprefs.setString('expenseInFood', expenseInFood)
       : null;
-  expenseInInterior != null
-      ? myprefs.setString('expenseInInterior', expenseInInterior)
+  expenseInother != null
+      ? myprefs.setString('expenseInother', expenseInother)
       : null;
   expenseInTransportation != null
       ? myprefs.setString('expenseInTransportation', expenseInTransportation)

@@ -48,8 +48,8 @@ class _SelectCategoryState extends State<SelectCategory> {
 
           ///for health
           createRowCategory(
-              imagePath: 'assets/images/interior.jpg',
-              categoryName: 'Interior'),
+              imagePath: 'assets/images/other.jpg',
+              categoryName: 'other'),
         ],
       ),
     );
