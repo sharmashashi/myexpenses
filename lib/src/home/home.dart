@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
 
               ///for chartItemtext
               Positioned(
-                top: percent(MediaQuery.of(context).size.height, 63),
+                top: percent(MediaQuery.of(context).size.height, 62),
                 child: ChartItemText(),
               ),
 

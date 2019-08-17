@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myexpenses/src/chart/chart_provider.dart';
+import 'package:myexpenses/src/detailed_categories/category_router.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
 import 'package:provider/provider.dart';
@@ -194,7 +196,7 @@ class _CategoryItemState extends State<CategoryItem> {
     "Transportation": Colors.cyan,
     "Clothing": Colors.indigo,
     "Foods": Colors.deepOrange,
-    "Other": Colors.black
+    "Other": Colors.teal
   };
 
   @override
@@ -220,9 +222,8 @@ class _CategoryItemState extends State<CategoryItem> {
           alignment: Alignment.center,
           height: _barChartProvider.getTotalExpense != 0
               ? (percent(widget.regionHeight, 100) /
-                          _barChartProvider.getTotalExpense) *
-                      providerGetters[widget.itemKey] 
-                  
+                      _barChartProvider.getTotalExpense) *
+                  providerGetters[widget.itemKey]
               : 0,
           width: percent(widget.regionWidth, 10),
           color: barColors[widget.itemKey],
@@ -244,35 +245,44 @@ class ChartItemText extends StatelessWidget {
     return Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                createChartItemText('Kitchen', Colors.green),
-                createChartItemText('Health', Colors.deepPurple),
-                createChartItemText('Transportation', Colors.cyan),
-                createChartItemText('Clothing', Colors.indigo),
-                createChartItemText('Foods', Colors.deepOrange),
-                createChartItemText('Other', Colors.black),
-              ],
-            ),
+            createChartItemText('Kitchen', Colors.green, context),
+            createChartItemText('Health', Colors.deepPurple, context),
+            createChartItemText('Transportation', Colors.cyan, context),
+            createChartItemText('Clothing', Colors.indigo, context),
+            createChartItemText('Foods', Colors.deepOrange, context),
+            createChartItemText('Other', Colors.teal, context),
           ],
         ));
   }
 
   ///returns chartItemtext
-  Widget createChartItemText(String itemName, Color color) {
+  Widget createChartItemText(
+      String itemName, Color color, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Text(
-        itemName,
-        style: TextStyle(
-            color: color,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic),
+      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+
+      ///custom button to navigate to category details
+
+      child: MaterialButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
+        elevation: 5,
+        color: Colors.white,
+        height: percent(MediaQuery.of(context).size.height, 3),
+        padding: EdgeInsets.all(5),
+        minWidth: percent(MediaQuery.of(context).size.height, 4),
+        onPressed: () => Navigator.of(context).push(
+            CupertinoPageRoute(builder: (BuildContext context) => CategoryRouter(categoryKey:itemName,color: color,))),
+        child: Text(
+          itemName,
+          style: TextStyle(
+              color: color,
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.normal),
+        ),
       ),
     );
   }

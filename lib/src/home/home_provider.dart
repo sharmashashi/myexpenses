@@ -10,10 +10,10 @@ class HomeProvider with ChangeNotifier {
     SharedPreferences myprefs = await SharedPreferences.getInstance();
     myprefs.getDouble('totalIncome') == null
         ? setTotalIncome = 1.0
-        : setTotalIncome = myprefs.getDouble('totalIncome')-1;
+        : setTotalIncome = myprefs.getDouble('totalIncome');
     myprefs.getDouble('totalExpense') == null
         ? setTotalExpense = 1.0
-        : setTotalExpense = myprefs.getDouble('totalExpense')-1;
+        : setTotalExpense = myprefs.getDouble('totalExpense');
     if (myprefs.getString('salaryDayDate') != null) {
       DateTime salaryDay = DateTime.parse(myprefs.getString('salaryDayDate'));
       setRemainingDays = salaryDay.difference(DateTime.now()).inDays;

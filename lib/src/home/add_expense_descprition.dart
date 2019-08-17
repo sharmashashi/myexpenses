@@ -19,7 +19,8 @@ class ExpenseDescription extends StatelessWidget {
       color: Colors.green,
     ),
   );
-  final BoxDecoration containerDecoration = new BoxDecoration(boxShadow: [
+  final BoxDecoration containerDecoration =
+      new BoxDecoration(borderRadius: BorderRadius.circular(200), boxShadow: [
     BoxShadow(
         color: Colors.white,
         blurRadius: 10,
@@ -100,6 +101,9 @@ class ExpenseDescription extends StatelessWidget {
                 child: Opacity(
                   opacity: 0.8,
                   child: TextField(
+                    maxLength: 120,
+                    keyboardType: TextInputType.text,
+
                     maxLines: 6,
                     controller: _descriptionController,
                     autocorrect: false,
@@ -189,9 +193,9 @@ class ExpenseDescription extends StatelessWidget {
       @required String categoryKey}) async {
     SharedPreferences detailedExpensesPrefs =
         await SharedPreferences.getInstance();
-    Map fromLocal=new Map();
+    Map fromLocal = new Map();
     int localLength = 1;
-    if (detailedExpensesPrefs.getString('expenseIn' +categoryName) != null) {
+    if (detailedExpensesPrefs.getString('expenseIn' + categoryName) != null) {
       fromLocal = convert.jsonDecode(
           detailedExpensesPrefs.getString('expenseIn' + categoryName));
       localLength = fromLocal.length + 1;
@@ -219,8 +223,8 @@ class ExpenseDescription extends StatelessWidget {
       updateSharedPreferences(expenseInHealth: encodedDetail);
     print('detailed expenses updated successfully!!!');
     Future.delayed(Duration(seconds: 4)).then((_) {
-      print(convert
-          .jsonDecode(detailedExpensesPrefs.getString('expenseIn'+categoryName)));
+      print(convert.jsonDecode(
+          detailedExpensesPrefs.getString('expenseIn' + categoryName)));
     });
   }
 }
