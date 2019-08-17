@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myexpenses/src/chart/charts.dart';
 import 'package:myexpenses/src/custom_widgets/custom_widgets.dart';
 import 'package:myexpenses/src/home/app_bar.dart';
-import 'package:myexpenses/src/home/charts.dart';
-import 'package:myexpenses/src/home/home_body.dart';
 import 'package:myexpenses/src/home/home_provider.dart';
 import 'package:myexpenses/src/home/select_category.dart';
 import 'package:myexpenses/src/local_storage/sharedPreferences.dart';
@@ -53,7 +52,20 @@ class _HomeState extends State<Home> {
                 fullHeight: _fullHeight,
                 fullWidth: _fullWidth,
               ),
-             Charts(),
+
+              ///for chart
+              Positioned(
+                top: percent(_fullHeight, 10),
+                left: percent(_fullWidth, 5),
+                bottom: percent(_fullHeight, 35),
+                child: Charts(),
+              ),
+
+              ///for chartItemtext
+              Positioned(
+                top: percent(MediaQuery.of(context).size.height, 63),
+                child: ChartItemText(),
+              ),
 
               ///bottom of home
               Positioned(

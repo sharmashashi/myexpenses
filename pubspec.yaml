@@ -59,9 +59,9 @@ flutter:
    - assets/images/transportation.jpg
    - assets/images/clothing.jpg
    - assets/images/food.jpg
-   - assets/images/interior.jpg
+   - assets/images/other.jpg
    - assets/custom_icons/health.png
-   - assets/custom_icons/interior.png
+   - assets/custom_icons/other.png
    - assets/custom_icons/food.png
    - assets/custom_icons/kitchen.png
    - assets/custom_icons/transportation.png
