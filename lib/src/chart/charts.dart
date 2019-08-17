@@ -179,8 +179,6 @@ class _ChartsState extends State<Charts> {
   }
 }
 
-
-
 class CategoryItem extends StatefulWidget {
   final regionHeight, regionWidth, provider, itemKey;
   CategoryItem(
@@ -220,14 +218,16 @@ class _CategoryItemState extends State<CategoryItem> {
             ///for graphical bar
             Container(
           alignment: Alignment.center,
-          height: (percent(widget.regionHeight, 100) /
-                      _barChartProvider.getTotalExpense) *
-                  providerGetters[widget.itemKey] -
-              1,
+          height: _barChartProvider.getTotalExpense != 0
+              ? (percent(widget.regionHeight, 100) /
+                          _barChartProvider.getTotalExpense) *
+                      providerGetters[widget.itemKey] 
+                  
+              : 0,
           width: percent(widget.regionWidth, 10),
           color: barColors[widget.itemKey],
           child: Text(
-            '${(providerGetters[widget.itemKey] * 100 / (_barChartProvider.totalExpense)).round()}%',
+            '${_barChartProvider.getTotalExpense != 0 ? (providerGetters[widget.itemKey] * 100 / (_barChartProvider.totalExpense)).round() : 0}%',
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 8),
           ),
@@ -253,16 +253,11 @@ class ChartItemText extends StatelessWidget {
                 createChartItemText('Kitchen', Colors.green),
                 createChartItemText('Health', Colors.deepPurple),
                 createChartItemText('Transportation', Colors.cyan),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
                 createChartItemText('Clothing', Colors.indigo),
                 createChartItemText('Foods', Colors.deepOrange),
                 createChartItemText('Other', Colors.black),
               ],
-            )
+            ),
           ],
         ));
   }

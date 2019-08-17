@@ -14,8 +14,8 @@ class BarChartProvider extends ChangeNotifier {
 
   initialize() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    setTotalExpense = prefs.getDouble('totalExpense');
+if(prefs.getDouble('totalExpense')!=null)
+    setTotalExpense = prefs.getDouble('totalExpense')-1;
 
     ///check for null value and if not then update totalexpense in each item in this provider
     if (prefs.getString('expenseInKitchen') != null) {
