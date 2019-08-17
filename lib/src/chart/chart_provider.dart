@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert' as convert;
 
 class BarChartProvider extends ChangeNotifier {
   double chartWidth = 0, chartHeight = 0;
@@ -7,44 +9,93 @@ class BarChartProvider extends ChangeNotifier {
       transportation = 0,
       clothing = 0,
       foods = 0,
-      other = 0;
+      other = 0,
+      totalExpense = 0;
+
+  initialize() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setTotalExpense = prefs.getDouble('totalExpense');
+
+    ///check for null value and if not then update totalexpense in each item in this provider
+    if (prefs.getString('expenseInKitchen') != null) {
+      setKitchenTotal =
+          totalExpenseMiner(prefs, categoryKey: 'expenseInKitchen');
+    }
+     if (prefs.getString('expenseInHealth') != null) {
+      setHealthTotal =
+          totalExpenseMiner(prefs, categoryKey: 'expenseInHealth');
+    }
+     if (prefs.getString('expenseInTransportation') != null) {
+      setTransportationTotal =
+          totalExpenseMiner(prefs, categoryKey: 'expenseInTransportation');
+    }
+     if (prefs.getString('expenseInClothing') != null) {
+      setClothingTotal =
+          totalExpenseMiner(prefs, categoryKey: 'expenseInClothing');
+    }
+     if (prefs.getString('expenseInFood') != null) {
+      setFoodsTotal =
+          totalExpenseMiner(prefs, categoryKey: 'expenseInFood');
+    }
+     if (prefs.getString('expenseInother') != null) {
+      setOtherTotal =
+          totalExpenseMiner(prefs, categoryKey: 'expenseInother');
+    }
+  }
+
+  ///returns total expense in specified category
+  double totalExpenseMiner(SharedPreferences prefs, {String categoryKey}) {
+    double total = 0;
+    Map categoryDetailMap = convert.jsonDecode(prefs.getString(categoryKey));
+    for (int i = 1; i <= categoryDetailMap.length; i++) {
+      total += double.parse(categoryDetailMap['$i'][0]);
+    }
+    return total;
+  }
 
   ///getter
-  get getKitchenHeight => kitchen;
-  get getHealthHeight => health;
-  get getTransportationHeight => transportation;
-  get getClothingHeight => clothing;
-  get getFoodsHeight => foods;
-  get getOtherHeight => other;
+  get getKitchenTotal => kitchen;
+  get getHealthTotal => health;
+  get getTransportationTotal => transportation;
+  get getClothingTotal => clothing;
+  get getFoodsTotal => foods;
+  get getOtherTotal => other;
+  get getTotalExpense => totalExpense;
 
   ///setter
-  set setKitchenHeight(double height) {
+  set setKitchenTotal(double height) {
     this.kitchen = height;
     notifyListeners();
   }
 
-  set setHealthHeight(double height) {
+  set setHealthTotal(double height) {
     this.health = height;
     notifyListeners();
   }
 
-  set setTransportationHeight(double height) {
+  set setTransportationTotal(double height) {
     this.transportation = height;
     notifyListeners();
   }
 
-  set setClothingHeight(double height) {
+  set setClothingTotal(double height) {
     this.clothing = height;
     notifyListeners();
   }
 
-  set setFoodsHeight(double height) {
+  set setFoodsTotal(double height) {
     this.foods = height;
     notifyListeners();
   }
 
-  set setOtherHeight(double height) {
+  set setOtherTotal(double height) {
     this.other = height;
+    notifyListeners();
+  }
+
+  set setTotalExpense(double total) {
+    this.totalExpense = total;
     notifyListeners();
   }
 }

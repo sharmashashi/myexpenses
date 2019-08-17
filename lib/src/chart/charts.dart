@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myexpenses/src/chart/chart_provider.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
-import 'dart:math';
 
 import 'package:provider/provider.dart';
 
@@ -180,6 +179,8 @@ class _ChartsState extends State<Charts> {
   }
 }
 
+
+
 class CategoryItem extends StatefulWidget {
   final regionHeight, regionWidth, provider, itemKey;
   CategoryItem(
@@ -197,6 +198,7 @@ class _CategoryItemState extends State<CategoryItem> {
     "Foods": Colors.deepOrange,
     "Other": Colors.black
   };
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<BarChartProvider>(
@@ -204,17 +206,28 @@ class _CategoryItemState extends State<CategoryItem> {
       child: Builder(builder: (BuildContext context) {
         ///initialize provider
         var _barChartProvider = Provider.of<BarChartProvider>(context);
-
+        _barChartProvider.initialize();
+        final Map providerGetters = {
+          "Kitchen": _barChartProvider.getKitchenTotal,
+          "Health": _barChartProvider.getHealthTotal,
+          "Transportation": _barChartProvider.getTransportationTotal,
+          "Clothing": _barChartProvider.getClothingTotal,
+          "Foods": _barChartProvider.getFoodsTotal,
+          "Other": _barChartProvider.getOtherTotal
+        };
         return
 
             ///for graphical bar
             Container(
           alignment: Alignment.center,
-          height: percent(widget.regionHeight, 69.5) - 1,
+          height: (percent(widget.regionHeight, 100) /
+                      _barChartProvider.getTotalExpense) *
+                  providerGetters[widget.itemKey] -
+              1,
           width: percent(widget.regionWidth, 10),
           color: barColors[widget.itemKey],
           child: Text(
-            '69.5%',
+            '${(providerGetters[widget.itemKey] * 100 / (_barChartProvider.totalExpense)).round()}%',
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 8),
           ),
@@ -229,35 +242,35 @@ class ChartItemText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      alignment: Alignment.center,
+        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.center,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            createChartItemText('Kitchen', Colors.green),
-            createChartItemText('Health', Colors.deepPurple),
-            createChartItemText('Transportation', Colors.cyan),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                createChartItemText('Kitchen', Colors.green),
+                createChartItemText('Health', Colors.deepPurple),
+                createChartItemText('Transportation', Colors.cyan),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                createChartItemText('Clothing', Colors.indigo),
+                createChartItemText('Foods', Colors.deepOrange),
+                createChartItemText('Other', Colors.black),
+              ],
+            )
           ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            createChartItemText('Clothing', Colors.indigo),
-            createChartItemText('Foods', Colors.deepOrange),
-            createChartItemText('Other', Colors.black),
-          ],
-        )
-      ],
-    ));
+        ));
   }
 
   ///returns chartItemtext
   Widget createChartItemText(String itemName, Color color) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Text(
         itemName,
         style: TextStyle(
