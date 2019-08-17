@@ -44,7 +44,7 @@ class _SelectCategoryState extends State<SelectCategory> {
 
           ///for health
           createRowCategory(
-              imagePath: 'assets/images/food.jpg', categoryName: 'Foods'),
+              imagePath: 'assets/images/food.jpg', categoryName: 'Food'),
 
           ///for health
           createRowCategory(

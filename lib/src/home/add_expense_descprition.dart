@@ -215,7 +215,7 @@ class ExpenseDescription extends StatelessWidget {
       updateSharedPreferences(expenseInClothing: encodedDetail);
     else if (categoryKey == 'Transportation')
       updateSharedPreferences(expenseInTransportation: encodedDetail);
-    else if (categoryKey == 'Foods')
+    else if (categoryKey == 'Food')
       updateSharedPreferences(expenseInFood: encodedDetail);
     else if (categoryKey == 'other')
       updateSharedPreferences(expenseInother: encodedDetail);
