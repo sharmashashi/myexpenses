@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myexpenses/src/chart/chart_provider.dart';
 import 'package:myexpenses/src/detailed_categories/category_router.dart';
-import 'package:myexpenses/src/detailed_categories/kitchen.dart';
 import 'package:myexpenses/src/utils/dimention_in_percent.dart';
 
 import 'package:provider/provider.dart';
@@ -197,7 +196,7 @@ class _CategoryItemState extends State<CategoryItem> {
     "Transportation": Colors.cyan,
     "Clothing": Colors.indigo,
     "Foods": Colors.deepOrange,
-    "Other": Colors.black
+    "Other": Colors.teal
   };
 
   @override
@@ -254,7 +253,7 @@ class ChartItemText extends StatelessWidget {
             createChartItemText('Transportation', Colors.cyan, context),
             createChartItemText('Clothing', Colors.indigo, context),
             createChartItemText('Foods', Colors.deepOrange, context),
-            createChartItemText('Other', Colors.black, context),
+            createChartItemText('Other', Colors.teal, context),
           ],
         ));
   }
@@ -275,7 +274,7 @@ class ChartItemText extends StatelessWidget {
         padding: EdgeInsets.all(5),
         minWidth: percent(MediaQuery.of(context).size.height, 4),
         onPressed: () => Navigator.of(context).push(
-            CupertinoPageRoute(builder: (BuildContext context) => CategoryRouter(categoryKey:itemName))),
+            CupertinoPageRoute(builder: (BuildContext context) => CategoryRouter(categoryKey:itemName,color: color,))),
         child: Text(
           itemName,
           style: TextStyle(
