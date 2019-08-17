@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myexpenses/src/custom_widgets/custom_widgets.dart';
 import 'package:myexpenses/src/home/app_bar.dart';
+import 'package:myexpenses/src/home/charts.dart';
 import 'package:myexpenses/src/home/home_body.dart';
 import 'package:myexpenses/src/home/home_provider.dart';
 import 'package:myexpenses/src/home/select_category.dart';
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> {
                 fullHeight: _fullHeight,
                 fullWidth: _fullWidth,
               ),
-              homeBody(height: _fullHeight, width: _fullWidth),
+             Charts(),
 
               ///bottom of home
               Positioned(

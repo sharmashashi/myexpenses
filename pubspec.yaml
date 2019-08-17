@@ -20,6 +20,8 @@ dependencies:
   flutter_launcher_icons: ^0.7.2+1
   provider: ^3.0.0+1
   shared_preferences: ^0.5.3+4
+  charts_flutter: ^0.6.0
+
 
   flutter:
     sdk: flutter
@@ -59,6 +61,12 @@ flutter:
    - assets/images/clothing.jpg
    - assets/images/food.jpg
    - assets/images/interior.jpg
+   - assets/custom_icons/health.png
+   - assets/custom_icons/interior.png
+   - assets/custom_icons/food.png
+   - assets/custom_icons/kitchen.png
+   - assets/custom_icons/transportation.png
+   - assets/custom_icons/clothing.png
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
