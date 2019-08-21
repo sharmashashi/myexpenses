@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
 
               ///for input expense button
               Positioned(
-                  bottom: percent(_fullHeight, 15),
+                  top: percent(_fullHeight, 70),
                   child: Container(
                       width: percent(_fullWidth, 100),
                       child: _incomeExpenseBody)),
@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
               Positioned(
                 left: percent(_fullWidth, 15),
                 right: percent(_fullWidth, 0),
-                bottom: percent(_fullHeight, 5),
+                bottom: percent(_fullHeight, 2.8),
                 child: textFieldButton,
               )
             ],

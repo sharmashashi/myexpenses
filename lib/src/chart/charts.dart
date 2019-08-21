@@ -177,7 +177,7 @@ class _ChartsState extends State<Charts> {
         alignment: Alignment.center,
         width: percent(regionWidth, 4.5),
         child: Text(percentage,
-            style: TextStyle(color: Colors.black, fontSize: 8)));
+            style: TextStyle(color: Colors.black, fontSize: 6)));
   }
 }
 
@@ -244,6 +244,8 @@ class ChartItemText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width,
+        //  height: percent(MediaQuery.of(context).size.height,8),
+        
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -262,7 +264,7 @@ class ChartItemText extends StatelessWidget {
   Widget createChartItemText(
       String itemName, Color color, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+      padding:  EdgeInsets.symmetric(horizontal: 0.1),
 
       ///custom button to navigate to category details
 
@@ -270,9 +272,9 @@ class ChartItemText extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
         elevation: 5,
         color: Colors.white,
-        height: percent(MediaQuery.of(context).size.height, 3),
+         height: percent(MediaQuery.of(context).size.height, 3),
         padding: EdgeInsets.all(5),
-        minWidth: percent(MediaQuery.of(context).size.height, 4),
+        minWidth: percent(MediaQuery.of(context).size.height, 3),
         onPressed: () => Navigator.of(context).push(
             CupertinoPageRoute(builder: (BuildContext context) => CategoryRouter(categoryKey:itemName,color: color,))),
         child: Text(

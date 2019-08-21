@@ -137,13 +137,14 @@ Widget selectIncomeExpenseButton(
     double fullHeight,
     Function onPressed}) {
   return MaterialButton(
-    padding: EdgeInsets.all(percent(fullWidth, 5)),
+    padding: EdgeInsets.all(percent(fullHeight, 2.5)),
     highlightColor: Colors.black12,
     animationDuration: Duration(microseconds: 500),
     shape: CircleBorder(),
     child: Icon(
       iconData,
       color: Colors.white,
+      size: 20,
     ),
     color: type == 'income' ? incomeBarColor : expenseBarColor,
     onPressed: onPressed,

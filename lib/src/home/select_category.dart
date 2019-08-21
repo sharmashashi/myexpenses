@@ -82,7 +82,7 @@ class _SelectCategoryState extends State<SelectCategory> {
           Text(
             categoryName,
             style: TextStyle(
-                color: primaryColor, fontWeight: FontWeight.w300, fontSize: 18),
+                color: primaryColor, fontWeight: FontWeight.w300, fontSize: 15),
           ),
         ],
       ),
